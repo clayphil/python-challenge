@@ -1,33 +1,29 @@
-# Import Modules/Dependencies
 import os
 import csv
 
-# Variables
+#Set Path
+csvpath = os.path.join('/Users/pmc/Desktop/GitHub/python-challenge/PyPoll/Resources/election_data.csv')
+
+#Variables
 total_votes = 0
 khan_votes = 0
 correy_votes = 0
 li_votes = 0
 otooley_votes = 0
 
-# Set Path For File
-csvpath = os.path.join('/Users/pmc/Desktop/GitHub/python-challenge/PyPoll/Resources/election_data.csv')
-
-# Open & Read CSV File
+#Open CSV File
 with open(csvpath, newline='') as csvfile:
 
-    # CSV Reader Specifies Delimiter & Variable That Holds Contents
     csvreader = csv.reader(csvfile, delimiter=',')
     
-    # Read The Header Row First (Skip This Step If There Is No Header)
     csv_header = next(csvfile)
 
-    # Read Each Row Of Data After The Header
     for row in csvreader:
         
-        # Calculate Total Number Of Votes Cast
+        #Total # of votes cast
         total_votes += 1
         
-        # Calculate Total Number Of Votes Each Candidate Won
+        #Total # of votes each candidate won
         if (row[2] == "Khan"):
             khan_votes += 1
         elif (row[2] == "Correy"):
@@ -37,13 +33,13 @@ with open(csvpath, newline='') as csvfile:
         else:
             otooley_votes += 1
             
-    # Calculate Percentage Of Votes Each Candidate Won
+    #Percentage of votes each candidate won
     kahn_percent = khan_votes / total_votes
     correy_percent = correy_votes / total_votes
     li_percent = li_votes / total_votes
     otooley_percent = otooley_votes / total_votes
     
-    # Calculate Winner Of The Election Based On Popular Vote
+    #Winner of the election based On popular vote
     winner = max(khan_votes, correy_votes, li_votes, otooley_votes)
 
     if winner == khan_votes:
@@ -55,7 +51,7 @@ with open(csvpath, newline='') as csvfile:
     else:
         winner_name = "O'Tooley" 
 
-# Print Analysis
+#Print
 print(f"Election Results")
 print(f"Total Votes: {total_votes}")
 print(f"Kahn: {kahn_percent:.3%}({khan_votes})")
@@ -64,13 +60,12 @@ print(f"Li: {li_percent:.3%}({li_votes})")
 print(f"O'Tooley: {otooley_percent:.3%}({otooley_votes})")
 print(f"Winner: {winner_name}")
 
-# Specify File To Write To
+#File Write
 output_file = os.path.join('/Users/pmc/Desktop/GitHub/python-challenge/PyPoll/results.text')
 
-# Open File Using "Write" Mode. Specify The Variable To Hold The Contents
 with open(output_file, 'w',) as txtfile:
 
-# Write New Data
+#Text File
     txtfile.write(f"Election Results\n")
     txtfile.write(f"Total Votes: {total_votes}\n")
     txtfile.write(f"Kahn: {kahn_percent:.3%}({khan_votes})\n")
